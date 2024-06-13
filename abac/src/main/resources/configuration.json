@@ -1,0 +1,22 @@
+{
+  "policies": [
+    {
+      "objectType": "document",
+      "name": "Only author can read own document",
+      "description": null,
+      "action": "read",
+      "preloadRule": "subject[authenticated]",
+      "rule": "object[author][email] eq subject[principal]",
+      "author": "Karen"
+    },
+    {
+      "objectType": "*",
+      "name": "Only author may be write own objects",
+      "description": "Object-Author relation",
+      "action": "write",
+      "preloadRule": "subject[authenticated] and subject[group] ne null and subject[group].containsAll({'editors'}) and subject[role] ne null and subject[role].containsAll({'user'})",
+      "rule": "object[author][email] eq subject[principal]",
+      "author": "Karen"
+    }
+  ]
+}
